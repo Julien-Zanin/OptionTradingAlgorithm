@@ -24,7 +24,6 @@
       <li><a href="#stratégies-détaillées">Stratégies Détailées</a></li>
     </ul>
   </li>
-  <li><a href="#installation">Installation</a></li>
   <li><a href="#structure-du-projet">Structure du Projet</a></li>
   <li><a href="#dépendances">Dépendances</a></li>
 </ul>
@@ -34,9 +33,9 @@
 <h3 id="introduction">Introduction</h3>
 <p>Ce projet vise à fournir une implémentation de diverses stratégies de trading d'options financières en utilisant le langage C#. Il permet aux utilisateurs de :</p>
 <ul>
-  <li>Modifier des stratégies d'options complexes.</li>
-  <li>Calculer les payoffs et les profits associés aux stratégies.</li>
-  <li>Exporter les données et les graphiques vers un fichier Excel pour une analyse approfondie.</li>
+  <li>Représenter des stratégies d'options complexes.</li>
+  <li>Calculer les payoffs et les profits associés à l'ensemble des stratégies demandées. Cela calcule également les payoff sur un intervalle de prix [MinPrice : Maxprice] </li>
+  <li>Exporter les données et les graphiques vers un fichier pour une synthèse des profits et pertes maximales pour chacune des stratégies et feuille de synthèse globale des stratégies.</li>
 </ul>
 
 <h3 id="sélection-des-stratégies">Sélection des Stratégies</h3>
@@ -44,11 +43,39 @@
 
 <pre><code>List&lt;Strategy&gt; strategies = new List&lt;Strategy&gt;
 {
-    new Straddle(80.0, expirationDate, pricingDate, market),
-    new BullSpread(85.0, 105.0, expirationDate, pricingDate, market),
-    // Ajoutez ou modifiez les stratégies ici
+      new Straddle(100.0, DateTime.Now.AddMonths(3), DateTime.Now, market, pricingMethod: "BlackScholes"),
+      new BullSpread(95.0, 105.0, DateTime.Now.AddMonths(3), DateTime.Now, market, pricingMethod: "Tree"),
+      new BearSpread(105.0, 95.0, DateTime.Now.AddMonths(3), DateTime.Now, market, pricingMethod: "Tree"),
+      new ButterflyStrategy(80.0, 100.0, 120.0, DateTime.Now.AddMonths(3), DateTime.Now, market, pricingMethod: "BlackScholes"),
+      new Strangle(90.0, 110.0, DateTime.Now.AddMonths(3), DateTime.Now, market, pricingMethod: "BlackScholes"),
+      new CoveredCall(100.0, DateTime.Now.AddMonths(3), DateTime.Now, market, pricingMethod: "BlackScholes"),
+      new ProtectivePut(100.0, DateTime.Now.AddMonths(3), DateTime.Now, market, pricingMethod: "BlackScholes"),
+      new IronCondor(80.0,90.0,110.0,120.0,DateTime.Now.AddMonths(3), DateTime.Now, market, pricingMethod: "BlackScholes")
 };
 </code></pre>
+
+<p>Par défaut les stratégies sont définies pour l'instant par des EuropeanOption, ici nous sommes dans <code>Butterfly.cs</code>  :</p>
+
+<pre><code>SetupPositions()
+        {
+            // Acheter une option Call avec le prix d'exercice le plus bas
+            EuropeanOption longCallLow = new EuropeanOption(_lowerStrike, _expirationDate, "Call", _pricingDate);
+            double premiumLongCallLow = _priceEngine.PriceOption(longCallLow, _market, _pricingMethod, _steps);
+            AddPosition(new OptionPosition(longCallLow, 1, premiumLongCallLow));
+
+            // Vendre deux options Call avec le prix d'exercice moyen
+            EuropeanOption shortCallMiddle = new EuropeanOption(_middleStrike, _expirationDate, "Call", _pricingDate);
+            double premiumShortCallMiddle = _priceEngine.PriceOption(shortCallMiddle, _market, _pricingMethod, _steps);
+            AddPosition(new OptionPosition(shortCallMiddle, -2, premiumShortCallMiddle));
+
+            // Acheter une option Call avec le prix d'exercice le plus haut
+            EuropeanOption longCallHigh = new EuropeanOption(_higherStrike, _expirationDate, "Call", _pricingDate);
+            double premiumLongCallHigh = _priceEngine.PriceOption(longCallHigh, _market, _pricingMethod, _steps);
+            AddPosition(new OptionPosition(longCallHigh, 1, premiumLongCallHigh));
+        };
+</code></pre>
+
+<p> On utilise les options Européennes indifféremment des options Américaines car pour l'instant, il n'y a aucune différence entre les deux. En effet, le prix variant si et seulement si il y a un exercice anticipé, comme nous n'avons pas encore implémenter les dividendes en tant que données, nous n'avons pas encore implémenter le choix entre option américaine et européenne. Cependant il est important de noter que  <code>TrinomialTree.cs</code> peut les prendre en compte.  :</p>
 
 <h3 id="choix-des-paramètres">Choix des Paramètres</h3>
 <p>Lors de l'ajout d'une stratégie, vous pouvez personnaliser les paramètres suivants :</p>
@@ -57,6 +84,9 @@
   <li><strong>Date d'expiration</strong> : La date à laquelle l'option expire.</li>
   <li><strong>Date de valorisation</strong> : La date actuelle ou la date à laquelle l'option est évaluée.</li>
   <li><strong>Méthode de pricing</strong> : La méthode utilisée pour calculer le prix de l'option (par exemple, Black-Scholes, Arbre Trinomial).</li>
+  <li><strong>MinPrice</strong> : Sera le prix Spot minimum qui servira de borne inférieur dans la boucle de comparaison des prix.
+  <li><strong>MaxPrice</strong> : Sera le prix Spot maximum qui servira de borne inférieur dans la boucle de comparaison des prix.
+  <li><strong>Step</strong> : Sera le pas qui permettra d'itérer sur l'intervalle [MinPrice : Maxprice]
 </ul>
 
 <h3 id="création-des-options">Création des Options</h3>
@@ -191,17 +221,11 @@
   <li><strong>Formule du Profit</strong> : <img src="URL_IMAGE_PROFIT_IRON_CONDOR" alt="Profit pour Iron Condor"></li>
 </ul>
 
-<h2>Installation</h2>
-<h3>Prérequis</h3>
-<ul>
-    <li>.NET 6.0 SDK ou supérieur : <a href="https://dotnet.microsoft.com/download/dotnet/6.0">Télécharger ici</a></li>
-    <li>Visual Studio 2022 ou supérieur (optionnel, mais recommandé pour le développement)</li>
-</ul>
 
 <h3>Étapes d'Installation</h3>
 <ol>
     <li>Cloner le dépôt GitHub :
-        <pre><code>git clone https://github.com/votre_nom_utilisateur/OptionTradingAlgorithm.git</code></pre>
+        <pre><code>git clone https://github.com/Julien-Zanin/OptionTradingAlgorithm.git</code></pre>
     </li>
     <li>Naviguer vers le répertoire du projet :
         <pre><code>cd OptionTradingAlgorithm</code></pre>
@@ -218,14 +242,15 @@
             <li><code>Program.cs</code> : Point d'entrée du programme.</li>
             <li><code>Strategies</code> : Dossier contenant les classes pour chaque stratégie.
                 <ul>
-                    <li><code>Strategy.cs</code> : Classe de base abstraite pour les stratégies.</li>
                     <li><code>Straddle.cs</code>, <code>BullSpread.cs</code>, etc. : Implémentations des stratégies spécifiques.</li>
                 </ul>
             </li>
             <li><code>Modele</code> : Dossier contenant les modèles financiers.
                 <ul>
-                    <li><code>Market.cs</code> : Représente les conditions du marché.</li>
+                    <li><code>Market.cs</code> : Représente les conditions du marché. Cette classe récupère les paramètres liés au marché.</li>
+                    <li><code>Contract.cs</code> : Représente les paramètres du contrat.</li>
                     <li><code>EuropeanOption.cs</code> : Modélisation des options européennes.</li>
+                    <li><code>AmericanOption.cs</code> : Modélisation des options américaines.</li>
                 </ul>
             </li>
             <li><code>Pricing</code> : Dossier contenant les méthodes de pricing.
@@ -237,7 +262,8 @@
             </li>
             <li><code>Trading</code> : Dossier contenant les classes relatives aux positions.
                 <ul>
-                    <li><code>OptionPosition.cs</code> : Représente une position sur une option.</li>
+                    <li><code>PositionOption.cs</code> : Représente une position sur une option (Achat ou Vente).</li>
+                    <li><code>TradingStrategy.cs</code> : Représente les conditions du marché. Cette classe récupère les paramètres liés au marché.</li>
                 </ul>
             </li>
         </ul>
