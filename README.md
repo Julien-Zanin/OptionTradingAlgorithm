@@ -135,46 +135,63 @@
 
 <h3 id="stratégies-détaillées">Stratégies Détailées</h3>
 
-<h4 id="straddle">Straddle</h4>
-<p><strong>Description</strong> : Le Straddle est une stratégie neutre qui consiste à acheter une option Call et une option Put avec le même prix d'exercice et la même date d'expiration.</p>
 
-<ul>
-  <li><strong>Composition</strong> :
-    <ul>
-      <li>Acheter une option Call (K)</li>
-      <li>Acheter une option Put (K)</li>
-    </ul>
-  </li>
-  <li><strong>Payoff Théorique</strong> : <p>Payoff = max(S - K1, 0) - max(S - K2, 0)</p></li>
-  <li><strong>Formule du Profit</strong> : <img src="URL_IMAGE_PROFIT_STRADDLE" alt="Profit pour Straddle"></li>
-</ul>
 
 <h4 id="bull-spread">Bull Spread</h4>
-<p><strong>Description</strong> : Le Bull Spread est une stratégie haussière utilisant des options Call. Elle permet de limiter les pertes et les gains potentiels.</p>
+<p><strong>Description</strong> : Le Bull Spread est une stratégie haussière utilisant des options Call. Elle permet de limiter les pertes et les gains potentiels en utilisant deux options avec différents prix d’exercice.</p>
 
 <ul>
   <li><strong>Composition</strong> :
     <ul>
-      <li>Acheter une option Call (K1)</li>
-      <li>Vendre une option Call (K2), avec K2 > K1</li>
+      <li>Acheter une option Call (<code>lowerStrikeCall</code>)</li>
+      <li>Vendre une option Call (<code>higherStrikeCall</code>), avec <code>higherStrikeCall</code> &gt; <code>lowerStrikeCall</code></li>
     </ul>
   </li>
-  <li><strong>Payoff Théorique</strong> : <img src="URL_IMAGE_PAYOFF_BULL_SPREAD" alt="Payoff pour Bull Spread"></li>
-  <li><strong>Formule du Profit</strong> : <img src="URL_IMAGE_PROFIT_BULL_SPREAD" alt="Profit pour Bull Spread"></li>
+  <li><strong>Payoff Théorique</strong> : <p>Payoff = max(S - lowerStrikeCall, 0) - max(S - higherStrikeCall, 0)</p></li>
+  <li><strong>Formule du Profit</strong> :<p>Profit = Payoff - (Prime Call Acheté - Prime Call Vendu)</p></li>
 </ul>
 
 <h4 id="bear-spread">Bear Spread</h4>
-<p><strong>Description</strong> : Le Bear Spread est une stratégie baissière utilisant des options Put. Elle permet de limiter les pertes et les gains potentiels.</p>
+<p><strong>Description</strong> : Le Bear Spread est une stratégie baissière utilisant des options Put. Elle permet de limiter les pertes et les gains potentiels en utilisant deux options avec différents prix d’exercice.</p>
 
 <ul>
   <li><strong>Composition</strong> :
     <ul>
-      <li>Acheter une option Put (K1)</li>
-      <li>Vendre une option Put (K2), avec K2 > K1</li>
+      <li>Acheter une option Put (<code>higherStrikePut</code>)</li>
+      <li>Vendre une option Put (<code>lowerStrikePut</code>), avec <code>higherStrikePut</code> &gt; <code>lowerStrikePut</code></li>
     </ul>
   </li>
-  <li><strong>Payoff Théorique</strong> : <img src="URL_IMAGE_PAYOFF_BEAR_SPREAD" alt="Payoff pour Bear Spread"></li>
-  <li><strong>Formule du Profit</strong> : <img src="URL_IMAGE_PROFIT_BEAR_SPREAD" alt="Profit pour Bear Spread"></li>
+  <li><strong>Payoff Théorique</strong> :<p>Payoff = max(higherStrikePut - S, 0) - max(lowerStrikePut - S, 0)</p></li>
+  <li><strong>Formule du Profit</strong> :<p>Profit = Payoff - (Prime Put Acheté - Prime Put Vendu)</p></li>
+</ul>
+
+<h4 id="butterfly-spread">Butterfly Spread</h4>
+<p><strong>Description</strong> : Le Butterfly Spread est une stratégie de faible volatilité qui utilise trois prix d’exercice différents pour créer un profil de profit limité, combinant des options achetées et vendues.</p>
+
+<ul>
+  <li><strong>Composition</strong> :
+    <ul>
+      <li>Acheter une option Call (<code>lowerStrikeCall</code>)</li>
+      <li>Vendre deux options Call (<code>middleStrikeCall</code>)</li>
+      <li>Acheter une option Call (<code>higherStrikeCall</code>) avec <code>higherStrikeCall</code> &gt; <code>middleStrikeCall</code> &gt; <code>lowerStrikeCall</code></li>
+    </ul>
+  </li>
+  <li><strong>Payoff Théorique</strong> : <p>Payoff = max(S - lowerStrikeCall, 0) - 2 * max(S - middleStrikeCall, 0) + max(S - higherStrikeCall, 0)</p></li>
+  <li><strong>Formule du Profit</strong> :<p>Profit = Payoff - (Prime Call Acheté Bas + Prime Call Acheté Haut - 2 * Prime Call Vendu)</p></li>
+</ul>
+
+<h4 id="calendar-spread">Calendar Spread</h4>
+<p><strong>Description</strong> : Le Calendar Spread est une stratégie de faible volatilité qui utilise des options avec le même prix d’exercice mais des dates d’expiration différentes.</p>
+
+<ul>
+  <li><strong>Composition</strong> :
+    <ul>
+      <li>Vendre une option à court terme</li>
+      <li>Acheter une option à long terme avec le même prix d’exercice</li>
+    </ul>
+  </li>
+  <li><strong>Payoff Théorique</strong> : <p>Payoff = Valeur de l'option à long terme à l'échéance de la première option - Prime de l'option vendue</p></li>
+  <li><strong>Formule du Profit</strong> :<p>Profit = Payoff - (Prime Option Long Terme - Prime Option Court Terme)</p></li>
 </ul>
 
 <h4 id="covered-call">Covered Call</h4>
@@ -187,12 +204,12 @@
       <li>Vendre une option Call (K)</li>
     </ul>
   </li>
-  <li><strong>Payoff Théorique</strong> : <img src="URL_IMAGE_PAYOFF_COVERED_CALL" alt="Payoff pour Covered Call"></li>
-  <li><strong>Formule du Profit</strong> : <img src="URL_IMAGE_PROFIT_COVERED_CALL" alt="Profit pour Covered Call"></li>
+  <li><strong>Payoff Théorique</strong> : <p>Payoff = min(S, K)</p></li>
+  <li><strong>Formule du Profit</strong> :<p>Profit = Payoff + Prime Reçue - Prix d'Achat de l'Actif</p></li>
 </ul>
 
 <h4 id="protective-put">Protective Put</h4>
-<p><strong>Description</strong> : Le Protective Put est une stratégie de couverture où l'investisseur détient le sous-jacent et achète une option Put.</p>
+<p><strong>Description</strong> : Le Protective Put est une stratégie de couverture où l'investisseur détient le sous-jacent et achète une option Put pour se protéger d'une baisse de prix.</p>
 
 <ul>
   <li><strong>Composition</strong> :
@@ -201,24 +218,52 @@
       <li>Acheter une option Put (K)</li>
     </ul>
   </li>
-  <li><strong>Payoff Théorique</strong> : <img src="URL_IMAGE_PAYOFF_PROTECTIVE_PUT" alt="Payoff pour Protective Put"></li>
-  <li><strong>Formule du Profit</strong> : <img src="URL_IMAGE_PROFIT_PROTECTIVE_PUT" alt="Profit pour Protective Put"></li>
+  <li><strong>Payoff Théorique</strong> : <p>Payoff = max(K, S)</p></li>
+  <li><strong>Formule du Profit</strong> : <p>Profit = Payoff - Prix d'Achat de l'Actif - Prime Put</p></li>
 </ul>
 
 <h4 id="iron-condor">Iron Condor</h4>
-<p><strong>Description</strong> : L'Iron Condor est une stratégie neutre qui combine un Bull Put Spread et un Bear Call Spread.</p>
+<p><strong>Description</strong> : L'Iron Condor est une stratégie neutre qui combine un Bull Put Spread et un Bear Call Spread pour limiter les pertes et les gains.</p>
 
 <ul>
   <li><strong>Composition</strong> :
     <ul>
-      <li>Vendre une option Put (K2)</li>
-      <li>Acheter une option Put (K1), avec K1 < K2</li>
-      <li>Vendre une option Call (K3)</li>
-      <li>Acheter une option Call (K4), avec K3 < K4</li>
+      <li>Vendre une option Put (<code>higherStrikePut</code>)</li>
+      <li>Acheter une option Put (<code>lowerStrikePut</code>), avec <code>lowerStrikePut</code> &lt; <code>higherStrikePut</code></li>
+      <li>Vendre une option Call (<code>lowerStrikeCall</code>)</li>
+      <li>Acheter une option Call (<code>higherStrikeCall</code>), avec <code>higherStrikeCall</code> &gt; <code>lowerStrikeCall</code></li>
     </ul>
   </li>
-  <li><strong>Payoff Théorique</strong> : <img src="URL_IMAGE_PAYOFF_IRON_CONDOR" alt="Payoff pour Iron Condor"></li>
-  <li><strong>Formule du Profit</strong> : <img src="URL_IMAGE_PROFIT_IRON_CONDOR" alt="Profit pour Iron Condor"></li>
+  <li><strong>Payoff Théorique</strong> : <p>Payoff = Différence entre les primes - Pertes maximales des spreads</p></li>
+  <li><strong>Formule du Profit</strong> : <p>Profit = Payoff - Coût Net des Options</p></li>
+</ul>
+
+<h4 id="straddle">Straddle</h4>
+<p><strong>Description</strong> : Le Straddle est une stratégie neutre qui consiste à acheter une option Call et une option Put avec le même prix d'exercice et la même date d'expiration.</p>
+
+<ul>
+  <li><strong>Composition</strong> :
+    <ul>
+      <li>Acheter une option Call (K)</li>
+      <li>Acheter une option Put (K)</li>
+    </ul>
+  </li>
+  <li><strong>Payoff Théorique</strong> : <p>Payoff = max(S - K, 0) + max(K - S, 0)</p></li>
+  <li><strong>Formule du Profit</strong> : <p>Profit = Payoff - (Prime Call + Prime Put)</p></li>
+</ul>
+
+<h4 id="strangle">Strangle</h4>
+<p><strong>Description</strong> : Le Strangle est une stratégie de volatilité qui consiste à acheter une option Call et une option Put avec des prix d’exercice différents.</p>
+
+<ul>
+  <li><strong>Composition</strong> :
+    <ul>
+      <li>Acheter une option Call (<code>higherStrikeCall</code>)</li>
+      <li>Acheter une option Put (<code>lowerStrikePut</code>)</li>
+    </ul>
+  </li>
+  <li><strong>Payoff Théorique</strong> : <p>Payoff = max(S - higherStrikeCall, 0) + max(lowerStrikePut - S, 0)</p></li>
+  <li><strong>Formule du Profit</strong> : <p>Profit = Payoff - (Prime Call + Prime Put)</p></li>
 </ul>
 
 
