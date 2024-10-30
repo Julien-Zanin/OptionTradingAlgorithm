@@ -145,7 +145,7 @@
       <li>Acheter une option Put (K)</li>
     </ul>
   </li>
-  <li><strong>Payoff Théorique</strong> : <img src="URL_IMAGE_PAYOFF_STRADDLE" alt="Payoff pour Straddle"></li>
+  <li><strong>Payoff Théorique</strong> : <p>Payoff = max(S - K1, 0) - max(S - K2, 0)</p></li>
   <li><strong>Formule du Profit</strong> : <img src="URL_IMAGE_PROFIT_STRADDLE" alt="Profit pour Straddle"></li>
 </ul>
 
