@@ -40,9 +40,6 @@
   <li><a href="#installation">Installation</a></li>
   <li><a href="#structure-du-projet">Structure du Projet</a></li>
   <li><a href="#dépendances">Dépendances</a></li>
-  <li><a href="#contribuer">Contribuer</a></li>
-  <li><a href="#licence">Licence</a></li>
-  <li><a href="#contact">Contact</a></li>
 </ul>
 
 <h2 id="introduction">Introduction</h2>
@@ -162,11 +159,3 @@
 <h2 id="dépendances">Dépendances</h2>
 <p>Liste des bibliothèques requises.</p>
 
-<h2 id="contribuer">Contribuer</h2>
-<p>Les contributions sont les bienvenues ! Veuillez suivre les <a href="CONTRIBUTING.md">règles de contribution</a> avant de soumettre une PR.</p>
-
-<h2 id="licence">Licence</h2>
-<p>Ce projet est sous licence MIT. Voir le fichier <a href="LICENSE">LICENSE</a> pour plus d'informations.</p>
-
-<h2 id="contact">Contact</h2>
-<p>Pour toute question, contactez-nous à <a href="mailto:email@example.com">email@example.com</a>.</p>
