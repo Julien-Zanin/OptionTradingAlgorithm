@@ -40,6 +40,9 @@
   <li><a href="#installation">Installation</a></li>
   <li><a href="#structure-du-projet">Structure du Projet</a></li>
   <li><a href="#dépendances">Dépendances</a></li>
+  <li><a href="#contribuer">Contribuer</a></li>
+  <li><a href="#licence">Licence</a></li>
+  <li><a href="#contact">Contact</a></li>
 </ul>
 
 <h2 id="introduction">Introduction</h2>
@@ -137,7 +140,7 @@
   <li><strong>Formule du Profit</strong> : \( \text{Profit} = \text{Payoff} - \text{Prime Call} - \text{Prime Put} \)</li>
 </ul>
 
-<!-- Continue de cette manière pour chaque stratégie (Bull Spread, Bear Spread, etc.) -->
+<!-- Continuer de cette manière pour chaque stratégie (Bull Spread, Bear Spread, etc.) -->
 
 <h2 id="arbre-trinomial">Arbre Trinomial</h2>
 <h3 id="principe-de-larbre-trinomial">Principe de l'Arbre Trinomial</h3>
