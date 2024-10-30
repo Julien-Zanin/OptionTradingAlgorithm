@@ -40,9 +40,6 @@
   <li><a href="#installation">Installation</a></li>
   <li><a href="#structure-du-projet">Structure du Projet</a></li>
   <li><a href="#dépendances">Dépendances</a></li>
-  <li><a href="#contribuer">Contribuer</a></li>
-  <li><a href="#licence">Licence</a></li>
-  <li><a href="#contact">Contact</a></li>
 </ul>
 
 <h2 id="introduction">Introduction</h2>
