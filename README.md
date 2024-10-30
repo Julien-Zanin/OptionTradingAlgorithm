@@ -329,7 +329,24 @@
         </ul>
     </li>
     <li>Microsoft.Extensions.Configuration.Json (optionnel) : Pour gérer les configurations via un fichier <code>appsettings.json</code>.</li>
+    <li>Bibliothèques de test :
+        <ul>
+            <li><strong>coverlet.collector</strong> : Collecte de couverture de code pour .NET, avec support pour les lignes, branches, et méthodes.
+                <pre><code>Install-Package coverlet.collector -Version 6.0.2</code></pre>
+            </li>
+            <li><strong>Microsoft.NET.Test.Sdk</strong> : Cibles MSBuild et propriétés pour les projets de test .NET.
+                <pre><code>Install-Package Microsoft.NET.Test.Sdk -Version 17.11.1</code></pre>
+            </li>
+            <li><strong>xunit</strong> : Framework de tests unitaires pour .NET, supportant le Test Driven Development.
+                <pre><code>Install-Package xunit -Version 2.9.2</code></pre>
+            </li>
+            <li><strong>xunit.runner.visualstudio</strong> : Outil pour exécuter les tests xUnit dans Visual Studio.
+                <pre><code>Install-Package xunit.runner.visualstudio -Version 2.8.2</code></pre>
+            </li>
+        </ul>
+    </li>
 </ul>
+
 
 </body>
 </html>
