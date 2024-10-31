@@ -11,8 +11,7 @@ Un projet en C# qui implémente diverses stratégies de trading d'options, telle
     - [Choix des Paramètres](#choix-des-paramètres)
     - [Création des Options](#création-des-options)
     - [Gestion des Positions](#gestion-des-positions)
-    - [Calcul du Payoff et du Profit](#calcul-du-payoff-et-du-profit)
-  - [Calcul du Payoff et du Profit](#calcul-du-payoff-et-du-profit-1)
+  - [Calcul du Payoff et du Profit](#calcul-du-payoff-et-du-profit)
     - [Calcul du Payoff pour une Option](#calcul-du-payoff-pour-une-option)
     - [Calcul du Payoff Total d'une Stratégie](#calcul-du-payoff-total-dune-stratégie)
     - [Calcul du Profit Total](#calcul-du-profit-total)
@@ -26,10 +25,10 @@ Un projet en C# qui implémente diverses stratégies de trading d'options, telle
   - [Iron Condor](#iron-condor)
   - [Straddle](#straddle)
   - [Strangle](#strangle)
-  - [Étapes d'Installation](#étapes-dinstallation)
-  - [Structure du Projet](#structure-du-projet)
-  - [Dépendances](#dépendances)
-  - [Considérations Futures](#considérations-futures)
+- [Étapes d'Installation](#étapes-dinstallation)
+- [Structure du Projet](#structure-du-projet)
+- [Dépendances](#dépendances)
+- [Considérations Futures](#considérations-futures)
   - [Difficultées rencontrées](#difficultées-rencontrées)
 
 # Documentation Technique
@@ -127,14 +126,6 @@ OptionPosition position = new OptionPosition
     premium: premiumValue
 };
 ```
-
-### Calcul du Payoff et du Profit
-Le payoff d'une position est le gain ou la perte réalisée à l'expiration de l'option en fonction du prix sous-jacent.
-
-Calcul du Payoff :
-- Option Call : [Payoff pour Option Call](#)
-- Option Put : [Payoff pour Option Put](#)
-- Sous-jacent : [Payoff pour Sous-jacent](#)
 
 ## Calcul du Payoff et du Profit
 
@@ -371,7 +362,7 @@ double totalProit = totalPayoff - InitialCost();
 
 
 
-## Étapes d'Installation
+# Étapes d'Installation
 1. Cloner le dépôt GitHub :
     ```bash
     git clone https://github.com/Julien-Zanin/OptionTradingAlgorithm.git
@@ -387,7 +378,7 @@ double totalProit = totalPayoff - InitialCost();
 
 
 
-## Structure du Projet
+# Structure du Projet
 
 - **OptionTradingAlgorithm** : Projet principal contenant le programme et les implémentations des stratégies.
   - `Program.cs` : Point d'entrée du programme.
@@ -413,7 +404,7 @@ double totalProit = totalPayoff - InitialCost();
 
 
 
-## Dépendances
+# Dépendances
 - **.NET 6.0** : Framework nécessaire pour exécuter l'application.
 - **EPPlus** : Bibliothèque pour manipuler les fichiers Excel.
     - Installée via NuGet :
@@ -426,7 +417,7 @@ double totalProit = totalPayoff - InitialCost();
 
 
 
-## Considérations Futures
+# Considérations Futures
 
 - **Extension des Stratégies** :
   - Ajout de nouvelles stratégies d'options.
