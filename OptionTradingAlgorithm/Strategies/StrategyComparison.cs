@@ -42,7 +42,5 @@ namespace OptionTradingAlgorithm.Strategies
                 }
             }
         }
-
-        // Vous pouvez ajouter d'autres méthodes pour comparer selon différents critères
     }
 }

@@ -38,7 +38,7 @@ namespace OptionTradingAlgorithm.Strategies
             _steps = steps;
             _priceEngine = new PriceEngine();
 
-            PricingMethod = pricingMethod; // Stocker la méthode de pricing utilisée
+            PricingMethod = pricingMethod;
 
             SetupPositions();
         }

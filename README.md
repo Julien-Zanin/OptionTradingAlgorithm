@@ -33,6 +33,7 @@ Un projet en C# qui implémente diverses stratégies de trading d'options, telle
 - [Dépendances](#dépendances)
 - [Considérations Futures](#considérations-futures)
   - [Difficultées rencontrées](#difficultées-rencontrées)
+  - [Résultats](#résultats)
 
 # Documentation Technique
 
@@ -168,8 +169,6 @@ Le profit total est calculé en tenant compte du coût initial (la somme des pri
 ```csharp
 double totalProit = totalPayoff - InitialCost();
 ```  
-
-
 
 
 
@@ -400,4 +399,14 @@ Le payoff de l'Iron Condor est limité, avec une perte maximale égale à la dif
 ## Difficultées rencontrées 
 
 L'implémentation de certaines stratégies telle que l'Iron Condor a pris plus de temps et nous a permis de réaliser certaines erreurs d'implémentations dans le calcul des payoffs. La mise en place ces tests unitaires, bien que laborieux nous a également beaucoup servi à débugger. Le manque de temps nous a fait faillite pour l'intégration de données réelles, qui n'aurait pas rajouté grand chose en lui-même et l'intégration d'une petite interface utilisateur pour guider l'implémentation des données de marché et mise en place des stratégies. 
+
+## Résultats 
+
+Les résultats du code se trouvent à partir de la racine du projet : 
+
+ ```bash
+      OptionTradingAlgorithm\bin\Debug\net8.0\Output
+ ```
+Si un fichier est déjà existant, une vX sera créée automatiquement. 
+
 
